@@ -13,12 +13,21 @@ let canGamble = true; //allows the player (you) to gamble while playerMoney > 0,
 let playerMoney = 1000; // Starting amount of money
 let currentBet = 10; // Starting bet amount
 
-window.onload = function() {
+window.onload = function () {
+    document.getElementById("new-hand").addEventListener("click", newHand);
+
     buildDeck();
     shuffleDeck();
     startGame();
-    document.getElementById("new-hand").addEventListener("click", newHand);
-}
+};
+
+// Rewriting the window.onload to be a DOMContentLoaded event listener
+// document.addEventListener("DOMContentLoaded", function() {
+//     buildDeck();
+//     shuffleDeck();
+//     startGame();
+//     document.getElementById("new-hand").addEventListener("click", newHand);
+// });
 
 function buildDeck() {
     let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
@@ -133,7 +142,7 @@ function displayBet(){
 
 function stay() {
         // Reveal the hidden card
-    document.getElementById("hidden").src = "./cards/" + hidden + ".png";
+    document.getElementById("hidden-card").src = "./cards/" + hidden + ".png";
 
     // Dealer's turn
     while (dealerSum < 17) {
@@ -148,7 +157,7 @@ function stay() {
     yourSum = reduceAce(yourSum, yourAceCount);
 
     canHit = false;
-    document.getElementById("hidden").src = "./cards/" + hidden + ".png";
+    document.getElementById("hidden-card").src = "./cards/" + hidden + ".png";
 
     let message = "";
     if (yourSum > 21) {
@@ -206,7 +215,9 @@ function reduceAce(playerSum, playerAceCount) {
     return playerSum;
 }
 
-function newHand(){
+function newHand() {
+    console.log("Entering newHand function");
+
     // Resetting variables for a new hand
     dealerSum = 0;
     yourSum = 0;
@@ -218,24 +229,41 @@ function newHand(){
 
     // Checking if the deck needs to be reshuffled
     if (deck.length < 10){
+        console.log("Shuffling deck");
         buildDeck();
         shuffleDeck();
     }
 
     // clearing the dealer's cards
-    document.getElementById("dealer-cards").innerHTML = "";
+    let dealerCardsContainer = document.getElementById("dealer-cards");
+    if (dealerCardsContainer){
+        console.log("Clearing dealer cards");
+        dealerCardsContainer.innerHTML = "";
+    } else {
+        console.log("Dealer cards container not found");
+    }
+
     // clearing the player's cards
-    document.getElementById("your-cards").innerHTML = "";
+    let yourCardsContainer = document.getElementById("your-cards");
+    if (yourCardsContainer){
+        console.log("Clearing player cards");
+        yourCardsContainer.innerHTML = "";
+    } else {
+        console.log("Your cards container not found");
+    }
 
+    console.log("Clearing results");
     // Resetting the hidden card to be hidden
-    document.getElementById("hidden").src = "./cards/BACK.png";
-
-    // Resetting the dealer's sum
-    //document.getElementById("dealer-sum").innerText = "0";
-    // Resetting the player's sum
-    //document.getElementById("your-sum").innerText = "0";
-
+    let hiddenElement = document.getElementById("hidden-card");
+    if (hiddenElement) {
+        hiddenElement.src = "./cards/BACK.png";
+    } else {
+        console.error("Element with id 'hidden-card' is not found");
+    }
+    console.log("after clearing results");
     // Start a new hand
+    console.log("Calling startGame");
     startGame();
-    console.log("New Hand");
+    
+    console.log("Exiting newHand function");
 }
