@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.container {
+    margin: 20px;
+}
+
+.card-container img {
+    height: 175px;
+    width: 125px;
+    margin: 5px;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #ebfffc;
+    color: #555;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5b548a;
+    color: #fff;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+#results {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#money, #current-bet {
+    margin-top: 10px;
+}
