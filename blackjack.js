@@ -53,6 +53,7 @@ function shuffleDeck() {
 }
 
 function startGame() {
+    document.getElementById("new-hand").addEventListener("click", newHand);
     hidden = deck.pop();
     dealerSum += getValue(hidden);
     dealerAceCount += checkAce(hidden);
@@ -239,6 +240,13 @@ function newHand() {
     if (dealerCardsContainer){
         console.log("Clearing dealer cards");
         dealerCardsContainer.innerHTML = "";
+
+        // Recreating the hidden card element
+        let hiddenCard = document.createElement("img");
+        hiddenCard.id = "hidden-card";
+        hiddenCard.src = "./cards/BACK.png";
+        hiddenCard.alt = "Hidden Card";
+        dealerCardsContainer.appendChild(hiddenCard);
     } else {
         console.log("Dealer cards container not found");
     }
@@ -254,12 +262,14 @@ function newHand() {
 
     console.log("Clearing results");
     // Resetting the hidden card to be hidden
-    let hiddenElement = document.getElementById("hidden-card");
-    if (hiddenElement) {
-        hiddenElement.src = "./cards/BACK.png";
-    } else {
-        console.error("Element with id 'hidden-card' is not found");
-    }
+    // let hiddenElement = document.getElementById("hidden-card");
+    // if (hiddenElement) {
+    //     // hiddenElement.src = "./cards/BACK.png";
+    //     document.getElementById("hidden-card").src = "./cards/BACK.png";
+
+    // } else {
+    //     console.error("Element with id 'hidden-card' is not found");
+    // }
     console.log("after clearing results");
     // Start a new hand
     console.log("Calling startGame");
